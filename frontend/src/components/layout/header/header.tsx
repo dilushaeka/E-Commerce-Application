@@ -5,15 +5,15 @@ import {GiHamburgerMenu} from "react-icons/gi";
 
 function Header(): JSX.Element {
     let Links = [
-        {name: "HOME", link: "/"},
+        {name: "HOME", link: "/home"},
         {name: "PRODUCTS", link: "/products"},
-        {name: "ABOUT", link: "/"},
+        {name: "ABOUT", link: "/about"},
         {name: "BLOG'S", link: "/"},
         {name: "CONTACT", link: "/"},
     ];
     let [open, setOpen] = useState(false);
     return (
-        <header className={'m-14'}>
+        <header className={'my-16'}>
 
             <nav className="">
                 <div className='shadow-md w-full fixed top-0 left-0'>

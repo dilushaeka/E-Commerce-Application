@@ -6,6 +6,7 @@ import Header from "./components/layout/header/header.tsx";
 import Footer from "./components/layout/footer/Footer.tsx";
 import Home from "./pages/homepage/Home.tsx";
 import Products from "./pages/products/Products.tsx";
+import About from "./pages/about/About.tsx";
 
 
 function App():JSX.Element {
@@ -18,6 +19,7 @@ function App():JSX.Element {
               <Routes>
                   <Route path={'home'} element={<Home/>}/>
                   <Route path={'products'} element={<Products/>}/>
+                  <Route path={'about'} element={<About/>}/>
               </Routes>
               <Footer/>
           </BrowserRouter>

@@ -2,7 +2,8 @@ import styles from "../../styles/styles.ts";
 import {Link} from "react-router-dom";
 function Hero():JSX.Element{
     return (
-        <div className={`relative min-h-[70vh] 800px:min-h-[80vh] w-full bg-no-repeat ${styles.noramlFlex}`}
+
+        <div className={`relative min-h-[70vh] 800px:min-h-[80vh] w-full bg-no-repeat mt-3 z-[-2] ${styles.noramlFlex}`}
              style={{backgroundImage:"url(https://themes.rslahmed.dev/rafcart/assets/images/banner-2.jpg)",
              }}>
             <div className={`${styles.section} w-[90%] 800px:w-[60%]`}>
@@ -24,6 +25,7 @@ function Hero():JSX.Element{
                 </Link>
             </div>
         </div>
+
     )
 }
 export default Hero
