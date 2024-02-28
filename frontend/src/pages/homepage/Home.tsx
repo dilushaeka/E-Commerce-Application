@@ -1,4 +1,4 @@
-import Hero from "../../route/hero/Hero.tsx";
+import Hero from "../../components/routes/hero/Hero.tsx";
 
 function Home():JSX.Element {
     return(

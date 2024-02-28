@@ -3,6 +3,8 @@ import bodyParser from "body-parser";
 import mongoose from 'mongoose'
 import UserModel from "./models/user.model";
 import CustomResponse from "./dtos/custom.response";
+import ProductModel from "./models/product.model";
+
 
 
 const app=express();
@@ -106,12 +108,45 @@ app.post('/user/auth',async (req:express.Request,res:express.Response)=>{
 // ==================================================================================================
 //
 
-
-app.post('/products',(req:express.Request,res:express.Response)=>{
+//================================= Products Create ====================================================
+app.post('/products/save',async (req:express.Request,res:express.Response)=>{
     try {
-        
+        let req_body= req.body;
+        const productModel=new ProductModel({
+            name:req_body.name ,
+            category:req_body.category,
+            description:req_body.description,
+            originalPrice: req_body.originalPrice,
+            // image: req_body.image,
+            stock:req_body.stock,
+            created:req_body.created,
+            user:req_body.user
+
+        })
+        await productModel.save().then(r=>{
+            res.status(200).send(
+                new CustomResponse(200,"product saved successfully")
+            )
+        }).catch(e=> {
+            res.status(100).send(
+                new CustomResponse(100, "Something Went Wrong")
+            )
+        });
     }catch (error){
-        res.status(100).send("Error"+error);
+        res.status(100).send("Error : "+error);
+    }
+});
+//================================= get All Products ====================================================
+
+app.get('/products/all', async (req:express.Request,res:express.Response)=>{
+
+    try {
+        let products= await ProductModel.find();
+        res.status(200).send(
+            new CustomResponse(200,"All Products Are Successfully...!",products)
+        )
+    }catch (error){
+        res.status(404).send("Error :"+error);
     }
 });
 
