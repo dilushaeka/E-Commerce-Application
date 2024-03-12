@@ -1,6 +1,6 @@
 function Footer():JSX.Element{
     return (
-        <footer className={'bg-teal-950 text-white p-5'}>
+        <footer className={'bg-teal-950 text-white p-5 '}>
             <img src={'https://logodix.com/logo/1597040.png'} title={"logo"} alt={"logo"} className={"w-[50px]"}/>
             <ul className={'mt-5'}>
                 <li>N0. 291/1/A, Main Rd, Panadura</li>
