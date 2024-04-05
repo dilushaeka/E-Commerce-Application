@@ -53,30 +53,6 @@ db.on('open', () => {
 
 
 
-//================================= get logged  all my products============================================
-app.get('/products/get/my',verifyToken ,async (req:express.Request,res:any) =>{
-    try {
-        let req_query:any=req.query;
-
-        let size=req_query.size;
-        let page=req_query.page;
-
-        let user_id=res.tokenData.user._id;
-
-
-        let articles=await ProductModel.find({user:user_id}).limit(size).skip(size*(page-1))
-
-        let documentCount=await ProductModel.countDocuments({user: user_id})
-
-        let pageCount= Math.ceil(documentCount/size);
-
-        res.status(200).send(
-            new CustomResponse(200,"Logger all Your products are Successfully loaded",articles,pageCount))
-    }catch (error) {
-        res.status(100).send("error"+error)
-    }
-})
-
 
 //================================= Update products============================================
 app.put('/products/',verifyToken,async (req:express.Request,res:any)=>{
