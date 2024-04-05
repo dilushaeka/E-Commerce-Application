@@ -4,7 +4,7 @@ import CustomResponse from "../dtos/custom.response";
 import * as  SchemaTypes from "../types/SchemaTypes"
 import jwt, {Secret} from "jsonwebtoken"
 
-const app = express();
+const router = express.Router();
 
 
 // ==================================================================================================
@@ -13,7 +13,8 @@ const app = express();
 //
 
 //==================================get all users====================================================
-app.get('/user/all', async (req: express.Request, res: express.Response) => {
+
+router.get('/all', async (req: express.Request, res: express.Response) => {
     try {
         let users = await UserModel.find();
         res.status(200).send(
@@ -26,7 +27,7 @@ app.get('/user/all', async (req: express.Request, res: express.Response) => {
 });
 
 //=================================create new user====================================================
-app.post('/user/register', async (req: express.Request, res: express.Response) => {
+router.post('/register', async (req: express.Request, res: express.Response) => {
 
     try {
         const req_body: any = req.body;
@@ -58,7 +59,7 @@ app.post('/user/register', async (req: express.Request, res: express.Response) =
 //================================= User Auth ========================================================
 
 
-app.post('/user/auth', async (req: express.Request, res: express.Response) => {
+router.post('/auth', async (req: express.Request, res: express.Response) => {
     try {
         let request_body = req.body
 
@@ -102,3 +103,5 @@ app.post('/user/auth', async (req: express.Request, res: express.Response) => {
         res.status(100).send("Error" + error);
     }
 });
+
+export default router;

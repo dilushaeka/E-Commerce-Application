@@ -13,6 +13,7 @@ import productModel from "./models/product.model";
 import * as  SchemaTypes from "./types/SchemaTypes"
 
 import jwt, {Secret} from "jsonwebtoken"
+import UserRoutes from "./routes/user.routes";
 
 
 
@@ -21,6 +22,11 @@ const app = express();
 
 app.use(bodyParser.json());
 
+
+//------------------user--------------------------
+app.use('/user',UserRoutes)
+
+//------------------product--------------------------
 interface User {
     username: string,
     fname: string,
@@ -43,60 +49,8 @@ db.on('open', () => {
 
 
 
-// ==================================================================================================
-//                               Products
-// ==================================================================================================
-//
-
-//================================= Products Create ====================================================
-
-// verify jwt token--
- const verifyToken=(req:express.Request,res:any,next:express.NextFunction)=>{
-     const token=req.headers.authorization;
-     if (!token){
-         return res.status(401).json('invalid token')
-     }
-
-     try {
-         const data = jwt.verify(token,process.env.SECRET as Secret)
-
-         res.tokenData =data;
-         // console.log(res.tokenData)
-         next();
-     }catch (error) {
-         return res.status(401).json('invalid token');
-     }
- }
- //----
-app.post('/products/save',verifyToken,async (req: express.Request, res: any) => {
-    try {
-        let req_body = req.body;
-        const productModel = new ProductModel({
-            name: req_body.name,
-            // id: req_body.id,
-            category: req_body.category,
-            description: req_body.description,
-            originalPrice: req_body.originalPrice,
-            // image: req_body.image,
-            stock: req_body.stock,
-            created: req_body.created,
-            user: req_body.user
 
 
-        })
-        await productModel.save().then(r => {
-            res.status(200).send(
-                new CustomResponse(200, "product saved successfully",)
-            )
-        }).catch(e => {
-            res.status(100).send(
-                new CustomResponse(100, "Something Went Wrong")
-            )
-        });
-    } catch (error) {
-        res.status(100).send("Error : " + error);
-    }
-});
 //================================= get All Products ====================================================
 
 app.get('/products/all', async (req: express.Request, res: express.Response) => {
