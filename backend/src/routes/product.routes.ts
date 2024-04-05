@@ -116,8 +116,8 @@ router.get('/products/:username',async (req:express.Request,res:express.Response
     }
 })
 
-//================================= get logged  all my products============================================
-app.get('/products/get/my',verifyToken ,async (req:express.Request,res:any) =>{
+//================================= get logger  all products ============================================
+router.get('/products/get/my',verifyToken ,async (req:express.Request,res:any) =>{
     try {
         let req_query:any=req.query;
 
@@ -140,3 +140,46 @@ app.get('/products/get/my',verifyToken ,async (req:express.Request,res:any) =>{
     }
 })
 
+
+//================================= Update products============================================
+router.put('/products/',verifyToken,async (req:express.Request,res:any)=>{
+    try {
+
+        let req_body:any=req.body;
+
+        let user_id=res.tokenData.user._id;
+
+        let product= await ProductModel.find({_id:req_body.id,user:user_id})
+
+        console.log(product)
+        if (product){
+            await productModel.findOneAndUpdate({_id:req_body.id},{
+                name: req_body.name,
+                // id: req_body.id
+                category: req_body.category,
+                description: req_body.description,
+                originalPrice: req_body.originalPrice,
+                // image: req_body.image,
+                stock: req_body.stock,
+                created: req_body.created,
+                user: req_body.user
+            })
+                .then( r=>{
+                    res.status(200).send(
+                        new CustomResponse(200,"Product Updated Successfully")
+                    )
+                }).catch( error =>{
+                    console.log(error)
+                    res.status(100).send(
+                        new CustomResponse(100,"Something Went wrong")
+                    )
+                })
+        }else {
+            res.status(401).send(
+                new CustomResponse(401,"Access Denied")
+            )
+        }
+    }catch (error){
+        res.status(100).send("error"+error)
+    }
+})
