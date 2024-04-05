@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 
 
 
+
 function Header(): JSX.Element {
     let Links = [
         {name: "HOME", link: "/"},
@@ -61,7 +62,7 @@ function Header(): JSX.Element {
                                 <CiShoppingCart size={'20'} className={' focus:bg-amber-300'}/>
                                 <div className={'rounded-full bg-red-700 flex align-middle px-2 h-fit w-fit'} style={{color:"white",position:"relative",left:"15px" ,top:"-1px"
                                 }}>
-                                    3
+                                    2
                                 </div>
                             </button>
 

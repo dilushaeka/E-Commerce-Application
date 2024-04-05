@@ -1,15 +1,8 @@
 import {Document,Schema,model} from "mongoose";
+import {SchemaType} from "mongoose";
+import * as SchemaTypes from "../types/SchemaTypes"
 
-export interface Iuser extends Document{
-    username:string,
-    fname:string,
-    lname:string,
-    email:string,
-    password:string,
-    avatar:string,
-}
-
-const userSchema=new Schema<Iuser>({
+const userSchema=new Schema<SchemaTypes.Iuser>({
     username:{type:String,required:true},
     fname:{type:String,required: true},
     lname:{type:String,required:true},
