@@ -2,13 +2,12 @@
 import express from "express";
 import ProductModel from "../models/product.model";
 import CustomResponse from "../dtos/custom.response";
-import router from "./user.routes";
 import {verifyToken} from "../middlewares";
 import productModel from "../models/product.model";
 import UserModel from "../models/user.model";
 
 
-
+const router=express.Router()
 
 
 
@@ -20,7 +19,7 @@ import UserModel from "../models/user.model";
 //================================= Products Create ====================================================
 
 
-router.post('/products/save',verifyToken,async (req: express.Request, res: any) => {
+router.post('/save',verifyToken,async (req: express.Request, res: any) => {
     try {
         let req_body = req.body;
         const productModel = new ProductModel({
@@ -53,7 +52,7 @@ router.post('/products/save',verifyToken,async (req: express.Request, res: any) 
 
 //================================= get All Products ====================================================
 
-router.get('/products/all', async (req: express.Request, res: express.Response) => {
+router.get('/all', async (req: express.Request, res: express.Response) => {
 
     try {
 
@@ -79,7 +78,7 @@ router.get('/products/all', async (req: express.Request, res: express.Response) 
 
 //================================= get All Products With User Name====================================================
 
-router.get('/products/:username',async (req:express.Request,res:express.Response)=>{
+router.get('/:username',async (req:express.Request,res:express.Response)=>{
     try {
 
         let username:string = req.params.username;
@@ -117,7 +116,7 @@ router.get('/products/:username',async (req:express.Request,res:express.Response
 })
 
 //================================= get logger  all products ============================================
-router.get('/products/get/my',verifyToken ,async (req:express.Request,res:any) =>{
+router.get('/get/my',verifyToken ,async (req:express.Request,res:any) =>{
     try {
         let req_query:any=req.query;
 
@@ -142,7 +141,7 @@ router.get('/products/get/my',verifyToken ,async (req:express.Request,res:any) =
 
 
 //================================= Update products============================================
-router.put('/products/',verifyToken,async (req:express.Request,res:any)=>{
+router.put('/',verifyToken,async (req:express.Request,res:any)=>{
     try {
 
         let req_body:any=req.body;
@@ -185,7 +184,7 @@ router.put('/products/',verifyToken,async (req:express.Request,res:any)=>{
 })
 
 //================================= Delete products============================================
-router.delete('/products/:id',verifyToken,async (req:express.Request,res:any)=>{
+router.delete('/:id',verifyToken,async (req:express.Request,res:any)=>{
     console.log("came")
     try {
         let user_id=res.tokenData.user._id;
@@ -216,3 +215,4 @@ router.delete('/products/:id',verifyToken,async (req:express.Request,res:any)=>{
     }
 });
 
+export default router;

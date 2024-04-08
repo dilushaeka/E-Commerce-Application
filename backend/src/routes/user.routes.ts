@@ -4,7 +4,7 @@ import CustomResponse from "../dtos/custom.response";
 import * as  SchemaTypes from "../types/SchemaTypes"
 import jwt, {Secret} from "jsonwebtoken"
 
-const router = express.Router();
+ const router = express.Router();
 
 
 // ==================================================================================================
