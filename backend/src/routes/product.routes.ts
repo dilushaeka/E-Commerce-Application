@@ -6,6 +6,7 @@ import {verifyToken} from "../middlewares";
 import productModel from "../models/product.model";
 import UserModel from "../models/user.model";
 import * as productController from "../controllers/product.controller"
+import {getLoggerAllProducts} from "../controllers/product.controller";
 
 const router=express.Router()
 
@@ -29,31 +30,10 @@ router.get('/all', productController.getAllProducts);
 
 //================================= get All Products With User Name====================================================
 
-router.get('/:username',productController.createProductWithUserName)
+router.get('/:username',productController.getAllProductsWithUserName)
 
 //================================= get logger  all products ============================================
-router.get('/get/my',verifyToken ,async (req:express.Request,res:any) =>{
-    try {
-        let req_query:any=req.query;
-
-        let size=req_query.size;
-        let page=req_query.page;
-
-        let user_id=res.tokenData.user._id;
-
-
-        let articles=await ProductModel.find({user:user_id}).limit(size).skip(size*(page-1))
-
-        let documentCount=await ProductModel.countDocuments({user: user_id})
-
-        let pageCount= Math.ceil(documentCount/size);
-
-        res.status(200).send(
-            new CustomResponse(200,"Logger all Your products are Successfully loaded",articles,pageCount))
-    }catch (error) {
-        res.status(100).send("error"+error)
-    }
-})
+router.get('/get/my',verifyToken ,getLoggerAllProducts)
 
 
 //================================= Update products============================================
