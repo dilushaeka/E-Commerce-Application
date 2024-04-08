@@ -3,6 +3,7 @@ import UserModel from "../models/user.model";
 import CustomResponse from "../dtos/custom.response";
 import * as  SchemaTypes from "../types/SchemaTypes"
 import jwt, {Secret} from "jsonwebtoken"
+import * as UserController from "../controllers/user.controller";
 
  const router = express.Router();
 
@@ -14,17 +15,7 @@ import jwt, {Secret} from "jsonwebtoken"
 
 //==================================get all users====================================================
 
-router.get('/all', async (req: express.Request, res: express.Response) => {
-    try {
-        let users = await UserModel.find();
-        res.status(200).send(
-            new CustomResponse(200, "Users Are Found success", users)
-        )
-    } catch (error) {
-        res.status(100).send("error get users")
-    }
-
-});
+router.get('/all',UserController.getAllUser );
 
 //=================================create new user====================================================
 router.post('/register', async (req: express.Request, res: express.Response) => {
