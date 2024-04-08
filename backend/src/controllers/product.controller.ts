@@ -124,7 +124,6 @@ export const getLoggerAllProducts=async (req:express.Request,res:any) =>{
 }
 
 // Update products
-
 export const updateProduct =async (req:express.Request,res:any)=>{
     try {
 
@@ -167,3 +166,35 @@ export const updateProduct =async (req:express.Request,res:any)=>{
     }
 }
 
+// Delete products
+
+export const deleteProducts =async (req:express.Request,res:any)=>{
+    console.log("came")
+    try {
+        let user_id=res.tokenData.user._id;
+        console.log(user_id)
+        let product_id:string=req.params.id;
+        console.log("product_id"+product_id)
+
+        let product=await ProductModel.find({_id:product_id,user:user_id})
+        console.log(product)
+        if (product){
+            productModel.deleteOne({_id: product_id}).
+            then(r=>{
+                res.status(200).send(
+                    new CustomResponse(200,"Product deleted Successfully")
+                )
+            }).catch(r=>{
+                res.status(100).send(
+                    new CustomResponse(100,"Something Went Wrong")
+                )
+            })
+        }else {
+            res.status.send(
+                new CustomResponse(401,"Access Denied")
+            )
+        }
+    }catch (error) {
+        res.status(100).send("error"+error)
+    }
+}
