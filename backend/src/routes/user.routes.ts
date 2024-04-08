@@ -18,34 +18,7 @@ import * as UserController from "../controllers/user.controller";
 router.get('/all',UserController.getAllUser );
 
 //=================================create new user====================================================
-router.post('/register', async (req: express.Request, res: express.Response) => {
-
-    try {
-        const req_body: any = req.body;
-        const userModel = new UserModel({
-            username: req_body.username,
-            fname: req_body.fname,
-            lname: req_body.lname,
-            email: req_body.email,
-            password: req_body.password
-        })
-        let user:SchemaTypes.Iuser|null=await userModel.save();
-
-        if (user){
-            user.password="";
-            res.status(200).send(
-                new CustomResponse(200, "User Created Successfully...!")
-            )
-        }else {
-            res.status(100).send(
-                new CustomResponse(100,"something went wrong")
-            )
-        }
-    } catch (error) {
-        res.status(100).send("Error....")
-    }
-
-});
+router.post('/register', );
 
 //================================= User Auth ========================================================
 
